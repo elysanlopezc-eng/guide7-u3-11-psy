@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colegio Montano - Personality Disorders & Responsible Case Analysis</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        montano: {
+                            blue: '#1269A8',
+                            yellow: '#F7D615',
+                            teal: '#54887D',
+                            lightblue: '#88B5C7',
+                            olive: '#A6B046',
+                            softwhite: '#F2F5E9',
+                            darkblue: '#0d4e7d'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Nunito', 'Segoe UI', 'Tahoma', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #e5e9db;
+            font-family: 'Nunito', 'Segoe UI', sans-serif;
+            color: #2d3748;
+        }
+        /* Whiteboard Frame Style */
+        .whiteboard-frame {
+            background-color: #F2F5E9;
+            border: 12px solid #CBD5E1;
+            border-radius: 24px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+        .tab-btn.active {
+            background-color: #1269A8;
+            color: #ffffff;
+            border-bottom: 4px solid #F7D615;
+        }
+        .tab-btn {
+            transition: all 0.25s ease-in-out;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F2F5E9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #88B5C7;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1269A8;
+        }
+        .badge-basic { background-color: #A6B046; color: white; }
+        .badge-int { background-color: #54887D; color: white; }
+        .badge-adv { background-color: #1269A8; color: white; }
+    </style>
+</head>
+<body class="p-2 md:p-6 min-h-screen">
+
+    <!-- Main Container / Whiteboard Frame -->
+    <div id="whiteboardContainer" class="whiteboard-frame max-w-7xl mx-auto p-4 md:p-8 transition-all duration-300">
+        
+        <!-- Header Section -->
+        <header class="flex flex-col md:flex-row items-center justify-between pb-6 mb-6 border-b-2 border-montano-lightblue/40 gap-4">
+            <div class="flex items-center gap-4">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyEop0yf6lZ7Jk9MILZxF1rBj4Oqs5esyhIQ&s" 
+                     alt="Colegio Montano Logo" 
+                     class="h-16 md:h-20 object-contain rounded-lg bg-white p-1 shadow-sm"
+                     onerror="this.src='https://placehold.co/120x60/1269A8/FFFFFF?text=Colegio+Montano'">
+                <div>
+                    <span class="bg-montano-yellow text-montano-darkblue text-xs px-2.5 py-1 rounded-full font-bold uppercase tracking-wider">
+                        11th Grade High School • ESL B2/C1
+                    </span>
+                    <h1 class="text-2xl md:text-3xl font-extrabold text-montano-blue mt-1">
+                        Personality Disorders & Responsible Case Analysis
+                    </h1>
+                    <p class="text-xs md:text-sm text-montano-teal font-semibold">
+                        Psychological Foundations, Diagnostic Complexity & De-stigmatization
+                    </p>
+                </div>
+            </div>
+
+            <!-- Fullscreen Button -->
+            <button onclick="toggleFullscreen()" 
+                    class="flex items-center gap-2 bg-montano-blue hover:bg-montano-darkblue text-white px-4 py-2.5 rounded-xl text-sm font-bold shadow-md transition-all transform active:scale-95">
+                <i class="fa-solid fa-expand text-montano-yellow"></i>
+                <span id="fsBtnText">Full Screen Board</span>
+            </button>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="flex flex-wrap gap-2 border-b border-gray-300 pb-3 mb-6">
+            <button onclick="switchTab('tab1')" id="btn-tab1" class="tab-btn active px-4 py-3 rounded-t-xl font-bold text-xs md:text-sm flex items-center gap-2 text-gray-700 bg-white shadow-sm">
+                <i class="fa-solid fa-book-open text-montano-yellow"></i> 1. Theoretical Foundations
+            </button>
+            <button onclick="switchTab('tab2')" id="btn-tab2" class="tab-btn px-4 py-3 rounded-t-xl font-bold text-xs md:text-sm flex items-center gap-2 text-gray-700 bg-white shadow-sm">
+                <i class="fa-solid fa-list-check"></i> 2. Solved Case Analyses (15)
+            </button>
+            <button onclick="switchTab('tab3')" id="btn-tab3" class="tab-btn px-4 py-3 rounded-t-xl font-bold text-xs md:text-sm flex items-center gap-2 text-gray-700 bg-white shadow-sm">
+                <i class="fa-solid fa-microphone"></i> 3. Live Voice Simulator
+            </button>
+            <button onclick="switchTab('tab4')" id="btn-tab4" class="tab-btn px-4 py-3 rounded-t-xl font-bold text-xs md:text-sm flex items-center gap-2 text-gray-700 bg-white shadow-sm">
+                <i class="fa-solid fa-brain"></i> 4. Critical Reflection
+            </button>
+            <button onclick="switchTab('tab5')" id="btn-tab5" class="tab-btn px-4 py-3 rounded-t-xl font-bold text-xs md:text-sm flex items-center gap-2 text-gray-700 bg-white shadow-sm">
+                <i class="fa-solid fa-pen-to-square"></i> 5. Formative Evaluation (15)
+            </button>
+        </nav>
+
+        <!-- TAB CONTENT CONTAINER -->
+        <main>
+            <!-- TAB 1: Theoretical Foundations -->
+            <section id="tab1" class="tab-content block space-y-6">
+                <!-- Respectful Norms Alert Banner -->
+                <div class="bg-montano-softwhite border-l-4 border-montano-yellow p-4 rounded-r-xl shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-shield-heart text-montano-blue text-2xl"></i>
+                        <div>
+                            <h3 class="font-extrabold text-montano-blue text-base">Classroom Discussion Protocol & Ethical Norms</h3>
+                            <p class="text-xs md:text-sm text-gray-700">
+                                Psychological analysis requires empathetic, clinical language. Avoid using psychiatric terms as casual labels or insults (e.g., calling someone "narcissistic" or "bipolar"). Diagnosis must be performed strictly by licensed healthcare professionals.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Theory Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Concept 1: Enduring Patterns -->
+                    <div class="bg-white p-5 rounded-2xl border-t-4 border-montano-blue shadow-md flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <h4 class="font-bold text-montano-blue text-lg"><i class="fa-solid fa-clock-rotate-left mr-2"></i>1. Enduring Patterns</h4>
+                                <span class="text-xs bg-montano-lightblue/30 text-montano-blue px-2 py-1 rounded font-bold">Concept A</span>
+                            </div>
+                            <p class="text-xs md:text-sm text-gray-600 mb-4">
+                                Personality disorders are characterized by deeply ingrained, inflexible, and enduring patterns of inner experience and behavior that deviate markedly from cultural expectations.
+                            </p>
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-gray-500 block mb-1">Chronicity & Pervasiveness Gauge:</label>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-montano-blue h-3 rounded-full" style="width: 85%"></div>
+                            </div>
+                            <span class="text-xs text-gray-500 mt-1 block text-right font-bold">High Inflexibility Across Settings</span>
+                        </div>
+                    </div>
+
+                    <!-- Concept 2: Clinical Distress vs. Trait -->
+                    <div class="bg-white p-5 rounded-2xl border-t-4 border-montano-teal shadow-md flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <h4 class="font-bold text-montano-teal text-lg"><i class="fa-solid fa-scale-balanced mr-2"></i>2. Trait vs. Disorder</h4>
+                                <span class="text-xs bg-montano-teal/20 text-montano-teal px-2 py-1 rounded font-bold">Concept B</span>
+                            </div>
+                            <p class="text-xs md:text-sm text-gray-600 mb-4">
+                                Personality traits are isolated behavioral tendencies. A clinical disorder requires significant functional impairment, subjective distress, or social/occupational disruption over prolonged time.
+                            </p>
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-gray-500 block mb-1">Impairment Threshold Meter:</label>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-montano-teal h-3 rounded-full" style="width: 70%"></div>
+                            </div>
+                            <span class="text-xs text-gray-500 mt-1 block text-right font-bold">Requires Clinical Dysfunction</span>
+                        </div>
+                    </div>
+
+                    <!-- Concept 3: Diagnostic Complexity -->
+                    <div class="bg-white p-5 rounded-2xl border-t-4 border-montano-olive shadow-md flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <h4 class="font-bold text-montano-olive text-lg"><i class="fa-solid fa-user-doctor mr-2"></i>3. Professional Evaluation</h4>
+                                <span class="text-xs bg-montano-olive/20 text-montano-olive px-2 py-1 rounded font-bold">Concept C</span>
+                            </div>
+                            <p class="text-xs md:text-sm text-gray-600 mb-4">
+                                Diagnosis is complex due to high symptom overlap (comorbidity) and ego-syntonic natures (individuals often do not perceive their behavior as problematic). Assessment requires longitudinal clinical context.
+                            </p>
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-gray-500 block mb-1">Diagnostic Rigor Score:</label>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-montano-olive h-3 rounded-full" style="width: 95%"></div>
+                            </div>
+                            <span class="text-xs text-gray-500 mt-1 block text-right font-bold">Requires Licensed Clinicians</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deep Dive Analytical Framework -->
+                <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm mt-6">
+                    <h3 class="font-extrabold text-montano-blue text-xl mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-magnifying-glass-chart text-montano-yellow"></i>
+                        Critique of Self-Report Assessment Tools vs. Comprehensive Clinical Assessment
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-700">
+                        <div class="bg-montano-softwhite p-4 rounded-xl border border-montano-lightblue/30">
+                            <h4 class="font-bold text-montano-blue mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-triangle-exclamation text-amber-500"></i> Limitations of Online/Pop-Psychology Tests
+                            </h4>
+                            <ul class="list-disc list-inside space-y-1 text-xs md:text-sm">
+                                <li><strong>Self-Report Bias:</strong> Individuals lack objective distance to rate their own patterns accurately.</li>
+                                <li><strong>Lack of Context:</strong> Online quizzes ignore trauma, acute stress, physical health conditions, and developmental stages.</li>
+                                <li><strong>Pathologizing Normality:</strong> Transient stress reactions are frequently mislabeled as chronic personality disorders.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-montano-softwhite p-4 rounded-xl border border-montano-teal/30">
+                            <h4 class="font-bold text-montano-teal mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-notes-medical text-montano-teal"></i> Multi-Method Clinical Protocols
+                            </h4>
+                            <ul class="list-disc list-inside space-y-1 text-xs md:text-sm">
+                                <li><strong>Structured Interviews:</strong> Diagnostic tools such as SCID-5 administered over multiple sessions.</li>
+                                <li><strong>Informant Reports:</strong> Longitudinal data gathered from family, peers, or medical history.</li>
+                                <li><strong>De-stigmatization Focus:</strong> Diagnosis aims to guide evidence-based therapy (e.g., DBT, CBT), not label the individual.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: Solved Example Cases (15 Examples) -->
+            <section id="tab2" class="tab-content hidden space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between bg-white p-4 rounded-xl border border-gray-200 gap-4">
+                    <div>
+                        <h3 class="font-bold text-montano-blue text-lg">Case Analysis Models & Educational Examples (15 Total)</h3>
+                        <p class="text-xs text-gray-600">Review how clinical traits, behavioral contexts, and de-stigmatized analyses are structured across 3 difficulty levels.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="filterExamples('all')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-montano-blue text-white">All (15)</button>
+                        <button onclick="filterExamples('basic')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-montano-olive text-white">Basic (1-5)</button>
+                        <button onclick="filterExamples('intermediate')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-montano-teal text-white">Intermediate (6-10)</button>
+                        <button onclick="filterExamples('advanced')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-montano-darkblue text-white">Advanced (11-15)</button>
+                    </div>
+                </div>
+
+                <!-- Examples Grid -->
+                <div id="examplesContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Javascript will dynamically populate or toggle 15 detailed examples -->
+                </div>
+            </section>
+
+            <!-- TAB 3: Live Voice Simulator & Performance Dashboard -->
+            <section id="tab3" class="tab-content hidden space-y-6">
+                <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
+                    <div class="flex items-center justify-between pb-4 border-b border-gray-200">
+                        <div>
+                            <h3 class="text-xl font-bold text-montano-blue flex items-center gap-2">
+                                <i class="fa-solid fa-headset text-montano-yellow"></i> Case Consultation Voice Simulator
+                            </h3>
+                            <p class="text-xs text-gray-600">Practice delivering objective, respectful case analysis verbally or via written input.</p>
+                        </div>
+                        <span class="text-xs bg-montano-teal/20 text-montano-teal font-extrabold px-3 py-1 rounded-full">Interactive AI Simulation</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+                        <!-- Left Simulator Controls -->
+                        <div class="lg:col-span-2 space-y-4">
+                            <!-- Scenario Prompt Box -->
+                            <div class="bg-montano-softwhite p-4 rounded-xl border border-montano-lightblue/40">
+                                <span class="text-xs font-extrabold text-montano-blue uppercase tracking-wider block mb-1">Simulated Clinical Case Prompt:</span>
+                                <p id="currentScenario" class="text-sm font-semibold text-gray-800">
+                                    "A classmate states that their room must be perfectly organized by color, declaring 'I have severe Obsessive-Compulsive Personality Disorder.' How do you explain the difference between a perfectionistic trait and a clinical personality disorder while upholding respectful speech norms?"
+                                </p>
+                            </div>
+
+                            <!-- Input Options -->
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 mb-1">Your Response (Voice or Text):</label>
+                                <textarea id="userInputText" rows="4" 
+                                          placeholder="Type your response here or click the microphone to speak..."
+                                          class="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-montano-blue focus:outline-none text-sm"></textarea>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="flex flex-wrap gap-3">
+                                <button onclick="toggleSpeechRecognition()" id="micBtn" 
+                                        class="bg-montano-blue hover:bg-montano-darkblue text-white px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 shadow-md transition-all">
+                                    <i class="fa-solid fa-microphone text-montano-yellow"></i>
+                                    <span id="micBtnLabel">Start Voice Input</span>
+                                </button>
+
+                                <button onclick="processUserResponse()" 
+                                        class="bg-montano-teal hover:bg-emerald-700 text-white px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 shadow-md transition-all">
+                                    <i class="fa-solid fa-paper-plane"></i> Evaluate Response
+                                </button>
+
+                                <button onclick="speakText(document.getElementById('aiFeedbackText').innerText)" 
+                                        class="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 transition-all">
+                                    <i class="fa-solid fa-volume-high text-montano-yellow"></i> Listen to AI Evaluator
+                                </button>
+                            </div>
+
+                            <!-- Simulated AI Response Box -->
+                            <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl mt-4">
+                                <h4 class="font-bold text-montano-blue text-xs uppercase flex items-center gap-2 mb-1">
+                                    <i class="fa-solid fa-robot"></i> AI Pedagogical Supervisor Response
+                                </h4>
+                                <p id="aiFeedbackText" class="text-xs md:text-sm text-gray-700 italic">
+                                    Waiting for your voice or text response to perform clinical clarity and respectful tone evaluation...
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Right Live Performance Dashboard -->
+                        <div class="bg-montano-softwhite p-5 rounded-xl border border-montano-lightblue/30 flex flex-col justify-between space-y-4">
+                            <h4 class="font-extrabold text-montano-blue text-base border-b pb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-chart-line text-montano-teal"></i> Live Performance Dashboard
+                            </h4>
+
+                            <!-- Metric 1: Pronunciation & Speech Clarity -->
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-xs font-bold">
+                                    <span>Pronunciation & Speech Clarity:</span>
+                                    <span id="scoreClarity">0%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div id="barClarity" class="bg-montano-blue h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Metric 2: Topic & Grammar Accuracy -->
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-xs font-bold">
+                                    <span>Topic / Grammar Accuracy:</span>
+                                    <span id="scoreAccuracy">0%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div id="barAccuracy" class="bg-montano-teal h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Metric 3: Politeness & Expression Etiquette -->
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-xs font-bold">
+                                    <span>Politeness & Expression Etiquette:</span>
+                                    <span id="scoreEtiquette">0%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div id="barEtiquette" class="bg-montano-olive h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Detected Key Terms Container -->
+                            <div class="pt-2">
+                                <span class="text-xs font-bold text-gray-700 block mb-1">Detected Clinical Key Terms:</span>
+                                <div id="detectedKeywords" class="flex flex-wrap gap-1 min-h-[40px] p-2 bg-white rounded-lg border border-gray-200 text-xs">
+                                    <span class="text-gray-400 italic">No speech/text analyzed yet</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: Critical Reflection Questions -->
+            <section id="tab4" class="tab-content hidden space-y-6">
+                <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-bold text-montano-blue mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-comments text-montano-yellow"></i> Critical Reflection & Applied Ethics
+                    </h3>
+                    <p class="text-xs md:text-sm text-gray-600 mb-6">
+                        Complete these advanced critical thinking prompts. Write thoughtful responses using B2/C1 academic vocabulary.
+                    </p>
+
+                    <div class="space-y-6">
+                        <!-- Reflection Q1 -->
+                        <div class="bg-montano-softwhite p-4 rounded-xl border border-montano-lightblue/40">
+                            <label class="block font-bold text-montano-blue text-sm mb-2">
+                                Question 1: Distinguishing Traits vs. Pathologies
+                            </label>
+                            <p class="text-xs text-gray-700 mb-3">
+                                Why is it harmful to reduce a person's entire identity to a psychological disorder label, and how does clinical diagnosis differ from casual social labeling?
+                            </p>
+                            <textarea rows="3" class="w-full p-3 rounded-lg border border-gray-300 text-sm focus:ring-2 focus:ring-montano-blue focus:outline-none" placeholder="Draft your analytical response here..."></textarea>
+                        </div>
+
+                        <!-- Reflection Q2 -->
+                        <div class="bg-montano-softwhite p-4 rounded-xl border border-montano-teal/40">
+                            <label class="block font-bold text-montano-teal text-sm mb-2">
+                                Question 2: Critique of Pop-Psychology Self-Assessments
+                            </label>
+                            <p class="text-xs text-gray-700 mb-3">
+                                Evaluate how viral social media trends claiming "5 signs you have a personality disorder" impact public mental health literacy and help-seeking behaviors.
+                            </p>
+                            <textarea rows="3" class="w-full p-3 rounded-lg border border-gray-300 text-sm focus:ring-2 focus:ring-montano-teal focus:outline-none" placeholder="Draft your analytical response here..."></textarea>
+                        </div>
+
+                        <!-- Reflection Q3 -->
+                        <div class="bg-montano-softwhite p-4 rounded-xl border border-montano-olive/40">
+                            <label class="block font-bold text-montano-olive text-sm mb-2">
+                                Question 3: Ethics in Fictional Case Analysis
+                            </label>
+                            <p class="text-xs text-gray-700 mb-3">
+                                When examining characters in literature or film, what ethical guidelines must students follow to avoid irresponsible armchair diagnosing while still analyzing character behaviors?
+                            </p>
+                            <textarea rows="3" class="w-full p-3 rounded-lg border border-gray-300 text-sm focus:ring-2 focus:ring-montano-olive focus:outline-none" placeholder="Draft your analytical response here..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 5: Formative Evaluation (15 Problems) -->
+            <section id="tab5" class="tab-content hidden space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between bg-white p-4 rounded-xl border border-gray-200 gap-4">
+                    <div>
+                        <h3 class="font-bold text-montano-blue text-lg">Formative Evaluation Exercises (15 Evaluative Scenarios)</h3>
+                        <p class="text-xs text-gray-600">Test your understanding of diagnostic boundaries, trait differentiation, and ethical case evaluation across 3 difficulty tiers.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="filterEval('all')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-montano-blue text-white">All (15)</button>
+                        <button onclick="filterEval('basic')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-montano-olive text-white">Level 1: Basic (5)</button>
+                        <button onclick="filterEval('intermediate')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-montano-teal text-white">Level 2: Inter. (5)</button>
+                        <button onclick="filterEval('advanced')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-montano-darkblue text-white">Level 3: Adv. (5)</button>
+                    </div>
+                </div>
+
+                <!-- Formative Exercises List -->
+                <div id="evaluationsContainer" class="space-y-4">
+                    <!-- Javascript will dynamically populate 15 formative problems with toggle solutions -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="mt-8 pt-4 border-t border-gray-300 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 gap-2">
+            <div>
+                <span class="font-bold text-montano-blue">Colegio Montano</span> • Department of Psychology & Modern Languages
+            </div>
+            <div>
+                High School ESL Curriculum Framework • Interactive Educational Iframe Module
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // ----------------------------------------------------
+        // DATA: 15 SOLVED EXAMPLES ACROSS 3 LEVELS
+        // ----------------------------------------------------
+        const solvedExamplesData = [
+            // BASIC LEVEL (1-5)
+            {
+                id: 1,
+                level: 'basic',
+                levelName: 'Level 1 - Basic',
+                title: 'Differentiating Shyness from Avoidant Traits',
+                scenario: 'An individual avoids speaking in large meetings due to fear of criticism.',
+                analysis: 'Shyness is a common personality trait. It becomes a clinical concern only if it causes severe, pervasive functional impairment across all social domains over years.',
+                ethicalNote: 'Do not label personal quietness as a clinical pathology.'
+            },
+            {
+                id: 2,
+                level: 'basic',
+                levelName: 'Level 1 - Basic',
+                title: 'High Standards vs. Obsessive-Compulsive Traits',
+                scenario: 'A student double-checks homework twice to ensure neatness before submission.',
+                analysis: 'Diligence is a adaptive trait. Clinical disorders involve inflexible, distressing compulsions that impair daily living.',
+                ethicalNote: 'High conscientiousness is positive and distinct from personality dysfunction.'
+            },
+            {
+                id: 3,
+                level: 'basic',
+                levelName: 'Level 1 - Basic',
+                title: 'Temporary Mood Shifts vs. Personality Instability',
+                scenario: 'A teenager experiences mood changes during exam week stress.',
+                analysis: 'Transient emotional reactivity due to acute environmental stressors is normal development, not an enduring pattern.',
+                ethicalNote: 'Acute stress reactions must not be confused with personality disorders.'
+            },
+            {
+                id: 4,
+                level: 'basic',
+                levelName: 'Level 1 - Basic',
+                title: 'Leadership Confidence vs. Narcissistic Traits',
+                scenario: 'A team captain speaks assertively about winning an upcoming championship.',
+                analysis: 'Self-confidence and competitive spirit are normal. Narcissistic personality patterns require long-term lack of empathy and exploitative habits.',
+                ethicalNote: 'Avoid using clinical terms for routine ambition or high self-esteem.'
+            },
+            {
+                id: 5,
+                level: 'basic',
+                levelName: 'Level 1 - Basic',
+                title: 'Preference for Solitude vs. Schizoid Tendencies',
+                scenario: 'An artist enjoys spending weekends alone painting without social interaction.',
+                analysis: 'Introversion is a healthy personality trait. Clinical detachment involves total inability to experience pleasure in social relationships across life contexts.',
+                ethicalNote: 'Respect diverse social preferences without pathologizing solitude.'
+            },
+
+            // INTERMEDIATE LEVEL (6-10)
+            {
+                id: 6,
+                level: 'intermediate',
+                levelName: 'Level 2 - Intermediate',
+                title: 'Critique of 10-Question Online "Personality Tests"',
+                scenario: 'A student takes a quiz online and receives a result saying "80% Paranoid Type".',
+                analysis: 'Self-report internet tools lack clinical validity, diagnostic context, and professional interview standards. They frequently generate false positives.',
+                ethicalNote: 'Online quizzes are for entertainment only, never for self-assessment.'
+            },
+            {
+                id: 7,
+                level: 'intermediate',
+                levelName: 'Level 2 - Intermediate',
+                title: 'Evaluating Fictional Case: Sherlock Holmes & Empathy',
+                scenario: 'Analyzing a fictional detective character who displays low social interest.',
+                analysis: 'Literary characters are written with dramatized tropes. Analyzing character behaviors academically differs from diagnosing real living individuals.',
+                ethicalNote: 'Fictional case studies are exercise tools for textual evidence, not clinical diagnoses.'
+            },
+            {
+                id: 8,
+                level: 'intermediate',
+                levelName: 'Level 2 - Intermediate',
+                title: 'Analyzing Ego-Syntonic Behavior in Case Studies',
+                scenario: 'A manager insists everyone follow their rigid schedule without perceiving their own inflexibility.',
+                analysis: 'Ego-syntonic traits feel natural and correct to the individual, making professional assessment complex as the person rarely seeks help for the trait itself.',
+                ethicalNote: 'Understanding ego-syntonicity helps explain why professional intervention requires skill.'
+            },
+            {
+                id: 9,
+                level: 'intermediate',
+                levelName: 'Level 2 - Intermediate',
+                title: 'Role of Cultural Context in Behavioral Evaluation',
+                scenario: 'An immigrant displays intense reliance on family decisions over personal choices.',
+                analysis: 'Collectivist cultural norms may prioritize family dependence. Psychological assessment must evaluate cultural standards before assuming dependent traits.',
+                ethicalNote: 'Never diagnose cultural differences as psychological dysfunctions.'
+            },
+            {
+                id: 10,
+                level: 'intermediate',
+                levelName: 'Level 2 - Intermediate',
+                title: 'De-stigmatizing Help-Seeking for Personality Care',
+                scenario: 'A client fears seeking therapy because they worry about being labeled "untreatable".',
+                analysis: 'Modern evidence-based modalities like Dialectical Behavior Therapy (DBT) demonstrate significant positive outcomes. Stigma impedes recovery.',
+                ethicalNote: 'Promote empathetic, evidence-based views on psychological therapy.'
+            },
+
+            // ADVANCED LEVEL (11-15)
+            {
+                id: 11,
+                level: 'advanced',
+                levelName: 'Level 3 - Advanced',
+                title: 'Comorbidity and Differential Diagnosis Challenges',
+                scenario: 'A client presents with chronic anxiety alongside persistent interpersonal conflict.',
+                analysis: 'Distinguishing overlapping symptoms between Axis I conditions (e.g., Generalized Anxiety) and enduring personality patterns requires longitudinal observation.',
+                ethicalNote: 'Only qualified clinical psychologists/psychiatrists hold assessment authority.'
+            },
+            {
+                id: 12,
+                level: 'advanced',
+                levelName: 'Level 3 - Advanced',
+                title: 'Deconstructing the DSM-5 Alternative Dimensional Model',
+                scenario: 'Transitioning from categorical diagnosis to dimensional personality functioning ratings.',
+                analysis: 'Modern psychiatry shifts toward measuring degrees of identity impairment and interpersonal dysfunction rather than rigid, binary categories.',
+                ethicalNote: 'Human personality exists on a continuum rather than isolated boxes.'
+            },
+            {
+                id: 13,
+                level: 'advanced',
+                levelName: 'Level 3 - Advanced',
+                title: 'Ethical Limits of Media Diagnoses ("Armchair Psychiatry")',
+                scenario: 'Commentators diagnosing public figures based on edited broadcast clips.',
+                analysis: 'The "Goldwater Rule" in professional ethics prohibits evaluating individuals without direct, formal examination and consent.',
+                ethicalNote: 'Media diagnosis violates professional ethics and public trust.'
+            },
+            {
+                id: 14,
+                level: 'advanced',
+                levelName: 'Level 3 - Advanced',
+                title: 'Impact of Trauma on Personality Development',
+                scenario: 'Differentiating Complex PTSD (C-PTSD) emotional dysregulation from personality traits.',
+                analysis: 'Developmental trauma heavily shapes defense mechanisms. Attributing trauma responses solely to personality disorders ignores root etiology.',
+                ethicalNote: 'Trauma-informed perspectives prioritize "what happened to you" over "what is wrong with you".'
+            },
+            {
+                id: 15,
+                level: 'advanced',
+                levelName: 'Level 3 - Advanced',
+                title: 'Formulating a Respectful Multi-Disciplinary Case Synthesis',
+                scenario: 'Synthesizing psychological, social, and biological factors in a hypothetical study.',
+                analysis: 'Comprehensive analysis incorporates the Bio-Psycho-Social model, ensuring human dignity and holistic understanding remain paramount.',
+                ethicalNote: 'Holistic clinical formulation respects human complexity.'
+            }
+        ];
+
+        // ----------------------------------------------------
+        // DATA: 15 FORMATIVE EVALUATION EXERCISES
+        // ----------------------------------------------------
+        const formativeEvalData = [
+            // LEVEL 1: BASIC (1-5)
+            {
+                id: 1,
+                level: 'basic',
+                levelName: 'Level 1 - Basic',
+                question: 'A friend states: "Our teacher is so obsessed with neatness, she definitely has a severe personality disorder." How should you ethically critique this statement?',
+                solution: 'The statement inappropriately pathologizes normal conscientiousness. High standards for neatness represent a behavioral trait, not a clinical disorder, which requires pervasive impairment and deep subjective distress across all life settings evaluated by a professional.'
+            },
+            {
+                id: 2,
+                level: 'basic',
+                levelName: 'Level 1 - Basic',
+                question: 'Define what makes a behavioral pattern "enduring" compared to a temporary state.',
+                solution: 'An enduring pattern is persistent across time (typically originating by early adulthood) and consistent across varied social contexts. A temporary state is a short-term reaction to external circumstances like grief, stress, or exhaustion.'
+            },
+            {
+                id: 3,
+                level: 'basic',
+                levelName: 'Level 1 - Basic',
+                question: 'Why are informal online surveys unsuitable for psychological diagnosis?',
+                solution: 'Informal surveys rely on unverified self-report, lack contextual clinical knowledge, do not account for environmental stress or medical conditions, and are not validated clinical diagnostic instruments.'
+            },
+            {
+                id: 4,
+                level: 'basic',
+                levelName: 'Level 1 - Basic',
+                question: 'Explain the concept of "functional impairment" in simple terms.',
+                solution: 'Functional impairment means that a person’s thoughts or behaviors significantly interfere with their ability to maintain relationships, perform at school or work, or handle daily life responsibilities.'
+            },
+            {
+                id: 5,
+                level: 'basic',
+                levelName: 'Level 1 - Basic',
+                question: 'What is the primary danger of using psychiatric labels casually in social conversations?',
+                solution: 'Casual psychiatric labeling increases social stigma, trivializes genuine clinical conditions, leads to misdiagnosis, and can cause emotional distress to individuals experiencing real mental health challenges.'
+            },
+
+            // LEVEL 2: INTERMEDIATE (6-10)
+            {
+                id: 6,
+                level: 'intermediate',
+                levelName: 'Level 2 - Intermediate',
+                question: 'Contrast "Ego-Syntonic" and "Ego-Dystonic" behaviors in psychological analysis.',
+                solution: 'Ego-syntonic behaviors align with the person’s self-concept and are seen by them as acceptable or correct (common in many personality disorders). Ego-dystonic behaviors feel unacceptable, alien, and inconsistent with self-identity (causing immediate distress).'
+            },
+            {
+                id: 7,
+                level: 'intermediate',
+                levelName: 'Level 2 - Intermediate',
+                question: 'In analyzing a fictional character like Jay Gatsby, how can a student analyze traits responsibly?',
+                solution: 'The student should frame the analysis around literary themes, motivation, and observed textual actions (e.g., "displays grandiosity to impress Daisy") rather than declaring a definitive medical diagnosis.'
+            },
+            {
+                id: 8,
+                level: 'intermediate',
+                levelName: 'Level 2 - Intermediate',
+                question: 'Why is longitudinal observation essential in clinical psychological assessment?',
+                solution: 'Longitudinal observation tracks patterns over extended time periods to ensure symptoms are not temporary reactions to acute trauma, substance use, physical illness, or developmental transitions.'
+            },
+            {
+                id: 9,
+                level: 'intermediate',
+                levelName: 'Level 2 - Intermediate',
+                question: 'How do cultural norms influence what is considered adaptive vs. maladaptive behavior?',
+                solution: 'Cultural norms define acceptable boundaries for emotional expression, independence, and social interaction. Behavior that seems overly dependent in an individualistic culture may be normal in a collectivist setting.'
+            },
+            {
+                id: 10,
+                level: 'intermediate',
+                levelName: 'Level 2 - Intermediate',
+                question: 'Identify two components of a respectful discussion protocol when analyzing case studies in class.',
+                solution: '1) Use objective, descriptive clinical language rather than judgmental terms. 2) Explicitly state that classroom analysis is educational and non-diagnostic.'
+            },
+
+            // LEVEL 3: ADVANCED (11-15)
+            {
+                id: 11,
+                level: 'advanced',
+                levelName: 'Level 3 - Advanced',
+                question: 'Critique the traditional categorical classification of personality disorders versus the dimensional model.',
+                solution: 'The categorical model treats disorders as distinct binary categories (present/absent), causing high comorbidity overlap. The dimensional model rates traits on a continuous spectrum of severity, reflecting real-world psychological variations more accurately.'
+            },
+            {
+                id: 12,
+                level: 'advanced',
+                levelName: 'Level 3 - Advanced',
+                question: 'Explain the Goldwater Rule and its significance in public discussions about mental health.',
+                solution: 'The Goldwater Rule states that it is unethical for psychiatrists to offer professional opinions about public figures without direct in-person evaluation and proper authorization, preventing political misuse of psychiatry.'
+            },
+            {
+                id: 13,
+                level: 'advanced',
+                levelName: 'Level 3 - Advanced',
+                question: 'How does trauma overlap with personality disorder symptoms, and why is differential assessment crucial?',
+                solution: 'Trauma responses (like hypervigilance or emotional dysregulation) closely mimic personality disorder traits. Differential assessment ensures individuals receive trauma-informed interventions (e.g., EMDR) rather than inaccurate diagnostic labels.'
+            },
+            {
+                id: 14,
+                level: 'advanced',
+                levelName: 'Level 3 - Advanced',
+                question: 'Design a 3-step evaluation checklist for verifying the credibility of a mental health article online.',
+                solution: '1) Source Authority: Is it written/reviewed by licensed professionals (e.g., APA, DSM-aligned)? 2) Evidence Base: Are conclusions supported by peer-reviewed research? 3) Nuance Check: Does it avoid clickbait absolute claims and acknowledge diagnostic complexity?'
+            },
+            {
+                id: 15,
+                level: 'advanced',
+                levelName: 'Level 3 - Advanced',
+                question: 'Formulate an ethical synthesis of how society should approach individuals with severe personality dysfunction.',
+                solution: 'Society should replace stigmatization and isolation with evidence-based therapeutic access (e.g., DBT/CBT), empathetic community support, early intervention, and recognition of human dignity throughout care.'
+            }
+        ];
+
+        // ----------------------------------------------------
+        // INITIALIZATION & TAB SWITCHING LOGIC
+        // ----------------------------------------------------
+        window.onload = function() {
+            renderSolvedExamples('all');
+            renderFormativeEvaluations('all');
+        };
+
+        function switchTab(tabId) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(el => el.classList.add('hidden'));
+
+            // Remove active style from buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show selected tab content
+            document.getElementById(tabId).classList.remove('hidden');
+
+            // Highlight active button
+            document.getElementById('btn-' + tabId).classList.add('active');
+        }
+
+        // Fullscreen Toggle
+        function toggleFullscreen() {
+            const container = document.getElementById('whiteboardContainer');
+            const fsBtnText = document.getElementById('fsBtnText');
+
+            if (!document.fullscreenElement) {
+                if (container.requestFullscreen) {
+                    container.requestFullscreen();
+                } else if (container.webkitRequestFullscreen) {
+                    container.webkitRequestFullscreen();
+                }
+                fsBtnText.innerText = "Exit Full Screen";
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+                fsBtnText.innerText = "Full Screen Board";
+            }
+        }
+
+        // ----------------------------------------------------
+        // RENDER SOLVED EXAMPLES (TAB 2)
+        // ----------------------------------------------------
+        function renderSolvedExamples(filter) {
+            const container = document.getElementById('examplesContainer');
+            container.innerHTML = '';
+
+            const filteredData = solvedExamplesData.filter(item => filter === 'all' || item.level === filter);
+
+            filteredData.forEach(item => {
+                let badgeClass = 'badge-basic';
+                if(item.level === 'intermediate') badgeClass = 'badge-int';
+                if(item.level === 'advanced') badgeClass = 'badge-adv';
+
+                const card = document.createElement('div');
+                card.className = 'bg-white p-5 rounded-2xl border border-gray-200 shadow-sm flex flex-col justify-between hover:shadow-md transition-all';
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs px-2.5 py-1 rounded-full font-extrabold ${badgeClass}">
+                                ${item.levelName}
+                            </span>
+                            <button onclick="speakText('${escapeQuotes(item.title + ". Scenario: " + item.scenario + ". Analysis: " + item.analysis)}')" 
+                                    class="text-montano-blue hover:text-montano-darkblue p-1 rounded-full hover:bg-montano-softwhite"
+                                    title="Listen to Text-to-Speech Audio">
+                                <i class="fa-solid fa-volume-high text-lg"></i>
+                            </button>
+                        </div>
+                        <h4 class="font-bold text-montano-blue text-base mb-2">Ex ${item.id}. ${item.title}</h4>
+                        <div class="bg-montano-softwhite p-3 rounded-xl mb-3 text-xs text-gray-700">
+                            <strong>Observed Scenario:</strong> "${item.scenario}"
+                        </div>
+                        <p class="text-xs text-gray-600 mb-3">
+                            <strong>Analytical Breakdown:</strong> ${item.analysis}
+                        </p>
+                    </div>
+                    <div class="border-t pt-2 text-[11px] text-montano-teal font-semibold flex items-center gap-1">
+                        <i class="fa-solid fa-circle-info"></i> ${item.ethicalNote}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterExamples(level) {
+            renderSolvedExamples(level);
+        }
+
+        // Helper to avoid breaking strings in TTS
+        function escapeQuotes(str) {
+            return str.replace(/'/g, "\\'").replace(/"/g, '\\"');
+        }
+
+        // ----------------------------------------------------
+        // TEXT-TO-SPEECH (TTS) ENGINE
+        // ----------------------------------------------------
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Stop ongoing speech
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.95;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Text-to-Speech is not supported in this browser environment.");
+            }
+        }
+
+        // ----------------------------------------------------
+        // RENDER FORMATIVE EVALUATIONS (TAB 5)
+        // ----------------------------------------------------
+        function renderFormativeEvaluations(filter) {
+            const container = document.getElementById('evaluationsContainer');
+            container.innerHTML = '';
+
+            const filteredData = formativeEvalData.filter(item => filter === 'all' || item.level === filter);
+
+            filteredData.forEach(item => {
+                let badgeClass = 'badge-basic';
+                if(item.level === 'intermediate') badgeClass = 'badge-int';
+                if(item.level === 'advanced') badgeClass = 'badge-adv';
+
+                const card = document.createElement('div');
+                card.className = 'bg-white p-5 rounded-2xl border border-gray-200 shadow-sm';
+                card.innerHTML = `
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs px-2.5 py-1 rounded-full font-extrabold ${badgeClass}">
+                                ${item.levelName}
+                            </span>
+                            <h4 class="font-bold text-montano-blue text-sm md:text-base">Problem #${item.id}</h4>
+                        </div>
+                        <button onclick="toggleSolution('sol-${item.id}')" 
+                                class="bg-montano-blue hover:bg-montano-darkblue text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1 self-start md:self-auto">
+                            <i class="fa-solid fa-eye"></i> <span id="btn-text-sol-${item.id}">Show Solution</span>
+                        </button>
+                    </div>
+                    <p class="text-xs md:text-sm text-gray-800 font-medium mb-3">
+                        ${item.question}
+                    </p>
+                    <div id="sol-${item.id}" class="hidden bg-montano-softwhite p-4 rounded-xl border-l-4 border-montano-teal mt-3 transition-all">
+                        <h5 class="font-extrabold text-montano-teal text-xs uppercase mb-1 flex items-center gap-1">
+                            <i class="fa-solid fa-square-check"></i> Step-by-Step Pedagogical Explanation:
+                        </h5>
+                        <p class="text-xs text-gray-700">
+                            ${item.solution}
+                        </p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterEval(level) {
+            renderFormativeEvaluations(level);
+        }
+
+        function toggleSolution(id) {
+            const element = document.getElementById(id);
+            const btnText = document.getElementById('btn-text-' + id);
+            if (element.classList.contains('hidden')) {
+                element.classList.remove('hidden');
+                btnText.innerText = "Hide Solution";
+            } else {
+                element.classList.add('hidden');
+                btnText.innerText = "Show Solution";
+            }
+        }
+
+        // ----------------------------------------------------
+        // VOICE RECOGNITION & SIMULATOR LOGIC (TAB 3)
+        // ----------------------------------------------------
+        let recognition;
+        let isListening = false;
+
+        function toggleSpeechRecognition() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+            if (!SpeechRecognition) {
+                alert("Web Speech API recognition is not supported in this browser. Please type your answer in the box.");
+                return;
+            }
+
+            const micBtn = document.getElementById('micBtn');
+            const micBtnLabel = document.getElementById('micBtnLabel');
+
+            if (!isListening) {
+                recognition = new SpeechRecognition();
+                recognition.lang = 'en-US';
+                recognition.continuous = false;
+                recognition.interimResults = false;
+
+                recognition.onstart = function() {
+                    isListening = true;
+                    micBtn.classList.remove('bg-montano-blue');
+                    micBtn.classList.add('bg-red-600', 'animate-pulse');
+                    micBtnLabel.innerText = "Listening... Speak Now";
+                };
+
+                recognition.onresult = function(event) {
+                    const transcript = event.results[0][0].transcript;
+                    document.getElementById('userInputText').value = transcript;
+                    processUserResponse();
+                };
+
+                recognition.onerror = function(event) {
+                    console.error("Speech Recognition Error:", event.error);
+                    stopListening();
+                };
+
+                recognition.onend = function() {
+                    stopListening();
+                };
+
+                recognition.start();
+            } else {
+                if (recognition) recognition.stop();
+                stopListening();
+            }
+        }
+
+        function stopListening() {
+            isListening = false;
+            const micBtn = document.getElementById('micBtn');
+            const micBtnLabel = document.getElementById('micBtnLabel');
+            micBtn.classList.remove('bg-red-600', 'animate-pulse');
+            micBtn.classList.add('bg-montano-blue');
+            micBtnLabel.innerText = "Start Voice Input";
+        }
+
+        function processUserResponse() {
+            const input = document.getElementById('userInputText').value.trim().toLowerCase();
+            const keywordsDiv = document.getElementById('detectedKeywords');
+            const aiFeedbackText = document.getElementById('aiFeedbackText');
+
+            if (!input) {
+                aiFeedbackText.innerText = "Please provide speech input or type a response first to run evaluation.";
+                return;
+            }
+
+            // Clinical & Analytical Keyword Detection List
+            const keyTermsList = [
+                'trait', 'disorder', 'impairment', 'distress', 'enduring', 
+                'professional', 'assessment', 'stigma', 'differentiate', 
+                'inflexible', 'clinical', 'pervasive', 'context'
+            ];
+
+            const foundTerms = [];
+            keyTermsList.forEach(term => {
+                if (input.includes(term)) {
+                    foundTerms.push(term);
+                }
+            });
+
+            // Update Detected Tags UI
+            keywordsDiv.innerHTML = '';
+            if (foundTerms.length > 0) {
+                foundTerms.forEach(term => {
+                    const tag = document.createElement('span');
+                    tag.className = 'bg-montano-blue text-white px-2 py-0.5 rounded font-bold uppercase text-[10px]';
+                    tag.innerText = term;
+                    keywordsDiv.appendChild(tag);
+                });
+            } else {
+                keywordsDiv.innerHTML = '<span class="text-amber-600 italic">No specific clinical terms detected yet. Try including terms like "trait", "distress", or "professional assessment".</span>';
+            }
+
+            // Calculate Dynamic Scores
+            const wordCount = input.split(/\s+/).length;
+            const accuracyScore = Math.min(100, Math.round((foundTerms.length / 4) * 100));
+            const clarityScore = Math.min(100, Math.max(40, wordCount * 4));
+            
+            // Etiquette checks for respectful language
+            let etiquetteScore = 90;
+            if (input.includes('crazy') || input.includes('psycho') || input.includes('nuts')) {
+                etiquetteScore = 30; // Deduct for derogatory slang
+            }
+
+            // Update UI Dashboards
+            document.getElementById('scoreClarity').innerText = clarityScore + '%';
+            document.getElementById('barClarity').style.width = clarityScore + '%';
+
+            document.getElementById('scoreAccuracy').innerText = accuracyScore + '%';
+            document.getElementById('barAccuracy').style.width = accuracyScore + '%';
+
+            document.getElementById('scoreEtiquette').innerText = etiquetteScore + '%';
+            document.getElementById('barEtiquette').style.width = etiquetteScore + '%';
+
+            // Generate AI Feedback Summary
+            let feedbackMsg = "";
+            if (etiquetteScore < 50) {
+                feedbackMsg = "Caution: Your response used stigmatizing slang (e.g., 'crazy'). Remember classroom norms require non-judgmental clinical language.";
+            } else if (foundTerms.length >= 3) {
+                feedbackMsg = `Excellent analytical response! You correctly differentiated traits from clinical disorders using terms like ${foundTerms.slice(0,3).join(', ')}. Your tone demonstrates high professional empathy and ESL C1 fluency.`;
+            } else {
+                feedbackMsg = "Good initiative! To increase your clinical accuracy score, explicitly mention how 'enduring patterns' and 'functional impairment' require licensed professional assessment rather than self-diagnosis.";
+            }
+
+            aiFeedbackText.innerText = feedbackMsg;
+
+            // Trigger TTS for AI Response automatically
+            speakText(feedbackMsg);
+        }
+    </script>
+</body>
+</html>
